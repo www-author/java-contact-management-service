@@ -1,4 +1,4 @@
-**# :computer: 연락처 관리 프로그램 
+# :computer: 연락처 관리 프로그램 
 사용자가 연락처 정보를 추가하고 검색할 수 있는 프로그램 
 
 ## :rocket: 기능 요구사항  
@@ -104,12 +104,17 @@
 연락처 검색이 완료되면 메뉴 선택 화면으로 돌아갑니다.
 
 ### 6. 종료 
+
 사용자가 5번 메뉴를 선택했을 때 프로그램을 종료합니다.
 
-### 클래스 다이어그램 
+
+<br> 
+
+## :clipboard: 클래스 다이어그램 
+
 아래는 설계 권장 사항이다. 
 
-`.. 이미지 추가 예정` 
+<img alt="classdiagram.png" src="https://github.com/www-author/java-contact-management-service/assets/148677085/a7e233d7-f6c0-40a1-98b9-659ebdfcf7a6" width="500">
 
 
 해당 클래스 다이어그램에서 나타내는 관계에 대한 설명은 아래와 같다.
