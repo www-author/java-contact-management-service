@@ -45,13 +45,11 @@ public class ContactManagementController {
                     view.printMenuResult(Message.EXIT_THE_PROGRAM.getMessage());
                     return;
                 }
-                default -> {
-                    view.printMenuResult(
-                            NumberValidator
+                default -> view.printMenuResult(
+                                    NumberValidator
                                     .from(menu.getNumber())
                                     .getMessage()
-                    );
-                }
+                );
             }
             menu = searchMenu(view.readSelectedMenuNumber());
         }
