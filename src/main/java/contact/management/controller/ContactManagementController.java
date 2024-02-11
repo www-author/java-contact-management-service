@@ -7,13 +7,12 @@ import main.java.contact.management.domain.address.AddressBook;
 import main.java.contact.management.domain.contact.BusinessContact;
 import main.java.contact.management.domain.contact.PersonalContact;
 import main.java.contact.management.utils.Console;
-import main.java.contact.management.utils.NumberValidator;
 import main.java.contact.management.view.ConsoleView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.java.contact.management.constants.Menu.searchMenu;
+import static main.java.contact.management.constants.Menu.convertToMenu;
 
 
 public class ContactManagementController {
@@ -25,10 +24,9 @@ public class ContactManagementController {
 
     public void run() {
         try (Console console = new Console()) {
-            Menu menu = searchMenu(view.readSelectedMenuNumber().trim());
+            Menu menu = convertToMenu(view.readSelectedMenuNumber());
             AddressBook addressBook = AddressBook.from(new ArrayList<>());
             distributeMenu(menu, addressBook);
-            throw new Exception();
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -45,13 +43,9 @@ public class ContactManagementController {
                     view.printMenuResult(Message.EXIT_THE_PROGRAM.getMessage());
                     return;
                 }
-                default -> view.printMenuResult(
-                                    NumberValidator
-                                    .from(menu.getNumber())
-                                    .getMessage()
-                );
+                default -> view.printMenuResult(menu.getMessage());
             }
-            menu = searchMenu(view.readSelectedMenuNumber());
+            menu = convertToMenu(view.readSelectedMenuNumber());
         }
     }
 
