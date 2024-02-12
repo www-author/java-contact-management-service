@@ -28,7 +28,7 @@ public class ContactManagementController {
             AddressBook addressBook = AddressBook.from(new ArrayList<>());
             distributeMenu(menu, addressBook);
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
