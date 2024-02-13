@@ -16,7 +16,10 @@ public enum Message {
     INPUT_COMPANY_NAME("회사명을 입력하세요: "),
     INPUT_RELATIONSHIP("관계를 입력하세요: "),
     INPUT_NAME_TO_SEARCH("검색할 이름을 입력하세요: "),
-    EXIT_THE_PROGRAM("프로그램을 종료합니다.");
+    EXIT_THE_PROGRAM("프로그램을 종료합니다."),
+    CONTACT_ADDITION("연락처가 추가되었습니다.");
+
+
 
     private final String message;
 

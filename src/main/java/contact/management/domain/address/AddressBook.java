@@ -20,10 +20,6 @@ public class AddressBook {
         return contacts;
     }
 
-    public void addContacts(List<Contact> contacts) {
-        this.contacts.addAll(contacts);
-    }
-
     public String displayContacts(List<Contact> contacts) {
         StringBuilder message = new StringBuilder();
         for (Contact contact : contacts) {
@@ -44,5 +40,9 @@ public class AddressBook {
             return ExceptionMessage.NOT_FOUND_CONTACT.getMessage();
         }
         return String.valueOf(message);
+    }
+
+    public void addContact(Contact contact) {
+        this.contacts.add(contact);
     }
 }
