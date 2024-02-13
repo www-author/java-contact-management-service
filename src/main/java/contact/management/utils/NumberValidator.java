@@ -1,7 +1,7 @@
 package main.java.contact.management.utils;
 
-import static main.java.contact.management.constants.ExceptionMessage.BLANK_MENU_NUMBER;
-import static main.java.contact.management.constants.ExceptionMessage.INVALID_MENU_NUMBER;
+import java.util.List;
+import static main.java.contact.management.constants.ExceptionMessage.*;
 
 public class NumberValidator {
     private String message;
@@ -14,18 +14,18 @@ public class NumberValidator {
         this.message = message;
     }
 
-    private NumberValidator(String number) {
-        validateMenuNumber(number);
-        validateBlank(number);
-    }
-
-    public static NumberValidator from(String number) {
-        return new NumberValidator(number);
-    }
-
-    public void validateBlank(String number) {
+    public void validateBlankMenu(String number) {
         if (number.isBlank()) {
             setMessage(BLANK_MENU_NUMBER.getMessage());
+        }
+    }
+
+    public void validateBlankInputValues(List<String> inputs) {
+        for (String input : inputs) {
+            if (input.isEmpty()) {
+                setMessage(EMPTY_VALUE.getMessage());
+                return;
+            }
         }
     }
 
@@ -33,6 +33,13 @@ public class NumberValidator {
         String regex = "[1-5]";
         if (!number.matches(regex)) {
             setMessage(INVALID_MENU_NUMBER.getMessage());
+        }
+    }
+
+    public void validatePhoneNumber(String number) {
+        String regex = "^(\\d{3}-?\\d{3}-?\\d{4})$";
+        if (!number.matches(regex)) {
+            setMessage(INVALID_CONTACT_FORMAT.getMessage());
         }
     }
 }

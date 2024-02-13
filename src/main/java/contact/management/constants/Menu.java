@@ -29,17 +29,21 @@ public enum Menu {
     }
 
     public static Menu convertToMenu(String menuNumberFormat) {
-        NumberValidator numberValidator = NumberValidator.from(menuNumberFormat);
-        String validationMessage = numberValidator.getMessage();
-
+        String validationMessage = getMenuValidationMessage(menuNumberFormat);
         for (Menu menu : Menu.values()) {
             if (validationMessage == null && menu.number == Integer.parseInt(menuNumberFormat)) {
                 return menu;
             }
         }
-
         INVALID_MENU.setMessage(validationMessage);
         return INVALID_MENU;
+    }
+
+    private static String getMenuValidationMessage(String menuNumberFormat) {
+        NumberValidator numberValidator = new NumberValidator();
+        numberValidator.validateMenuNumber(menuNumberFormat);
+        numberValidator.validateBlankMenu(menuNumberFormat);
+        return numberValidator.getMessage();
     }
 
 }

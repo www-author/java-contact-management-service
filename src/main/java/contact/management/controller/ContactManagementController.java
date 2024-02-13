@@ -7,9 +7,11 @@ import main.java.contact.management.domain.address.AddressBook;
 import main.java.contact.management.domain.contact.BusinessContact;
 import main.java.contact.management.domain.contact.PersonalContact;
 import main.java.contact.management.utils.Console;
+import main.java.contact.management.utils.NumberValidator;
 import main.java.contact.management.view.ConsoleView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static main.java.contact.management.constants.Menu.convertToMenu;
 
@@ -19,8 +21,11 @@ public class ContactManagementController {
     // 별도의 service 계층 대신 해당 클래스에서 처리
     private final AddressBook addressBook;
 
+    private final NumberValidator numberValidator;
+
     public ContactManagementController() {
         this.view = new ConsoleView();
+        this.numberValidator = new NumberValidator();
         this.addressBook = AddressBook.from(new ArrayList<>());
     }
 
@@ -51,31 +56,39 @@ public class ContactManagementController {
     }
 
     private String addBusinessContact() {
-        // TODO 입력 값들  빈값 유효성 검사
-        // TODO 연락처 유효성 검사
-        String name = view.readUserName();
+        String name =  view.readUserName();
         String contact = view.readContact();
         String company = view.readCompany();
-        addressBook.addContact(BusinessContact.of(name, contact, company));
-        return Message.CONTACT_ADDITION.getMessage();
+
+        numberValidator.validatePhoneNumber(contact);
+        numberValidator.validateBlankInputValues(List.of(name, contact, company));
+
+        if (numberValidator.getMessage() == null) {
+            addressBook.addContact(BusinessContact.of(name, contact, company));
+            return Message.CONTACT_ADDITION.getMessage();
+        }
+        return numberValidator.getMessage();
     }
 
     private String addPersonalContact() {
-        // TODO 입력 값들  빈값 유효성 검사
-        // TODO 연락처 유효성 검사
         String name = view.readUserName();
         String contact = view.readContact();
         String relationship = view.readRelationship();
-        addressBook.addContact(PersonalContact.of(name, contact, relationship));
-        return Message.CONTACT_ADDITION.getMessage();
+
+        numberValidator.validatePhoneNumber(contact);
+        numberValidator.validateBlankInputValues(List.of(name, contact, relationship));
+
+        if(numberValidator.getMessage() == null) {
+            addressBook.addContact(PersonalContact.of(name, contact, relationship));
+            return Message.CONTACT_ADDITION.getMessage();
+        }
+
+        return numberValidator.getMessage();
     }
 
     private String displayContact() {
         String message = addressBook.displayContacts(addressBook.getContacts());
-        if(message.isEmpty()){
-            message = ExceptionMessage.EMPTY_CONTACT.getMessage();
-        }
-        return message;
+        return message.isEmpty() ? ExceptionMessage.EMPTY_CONTACT.getMessage() : message;
     }
 
     private String searchContact() {
