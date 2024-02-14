@@ -25,6 +25,10 @@ public class AddressBook {
         for (Contact contact : contacts) {
             message.append(contact).append("\n");
         }
+        // 연락처 정보가 없는 경우 예외 발생
+        if(message.isEmpty()) {
+            throw new IllegalArgumentException(ExceptionMessage.EMPTY_CONTACT.getMessage());
+        }
         return String.valueOf(message);
     }
 
