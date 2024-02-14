@@ -87,8 +87,7 @@ public class ContactManagementController {
     }
 
     private String displayContact() {
-        String message = addressBook.displayContacts(addressBook.getContacts());
-        return message.isEmpty() ? ExceptionMessage.EMPTY_CONTACT.getMessage() : message;
+        return  addressBook.displayContacts(addressBook.getContacts());
     }
 
     private String searchContact() {
